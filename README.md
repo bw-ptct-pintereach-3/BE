@@ -24,7 +24,7 @@ Add the code necessary to create a Web API and implement the following _endpoint
 | POST   | /api/auth/register | `username` `password`         | Creates a user account using the information sent inside the `request body`. |
 | POST   | /api/auth/login    | `username` `password` `token` | Logs user into app.                                                          |
 
-### Register Data Returned
+#### Register Data Returned
 
 ```js
 {
@@ -33,7 +33,7 @@ Add the code necessary to create a Web API and implement the following _endpoint
 }
 ```
 
-### Login Data Returned
+#### Login Data Returned
 
 ```js
 {
@@ -51,26 +51,26 @@ Add the code necessary to create a Web API and implement the following _endpoint
 | PUT    | /api/articles/:id | `url` `category_id` `token` | Updates the article with the specified `id` using data from the `request body`. Returns the modified article. |
 | DELETE | /api/articles/:id | `token`                     | Removes the article with the specified `id`.                                                                  |
 
-### GET Article Data Returned
+#### GET Article Data Returned
 
 ```js
 [
   {
-    id: 9,
-    url: "https://slack.com",
-    user_id: 1,
-    category_id: 9,
+    "id": 9,
+    "url": "https://slack.com",
+    "user_id": 1,
+    "category_id": 9,
   },
   {
-    id: 10,
-    url: "https://youtube.com",
-    user_id: 1,
-    category_id: 10,
+    "id": 10,
+    "url": "https://youtube.com",
+    "user_id": 1,
+    "category_id": 10,
   },
 ];
 ```
 
-### GET with ID, POST, and PUT Data Returned
+#### GET with ID, POST, and PUT Article Data Returned
 
 ```js
 {
@@ -81,7 +81,7 @@ Add the code necessary to create a Web API and implement the following _endpoint
 }
 ```
 
-### DELETE Article with Specified ID Data Returned
+#### DELETE Article with Specified ID Data Returned
 
 ```js
 {
@@ -93,7 +93,7 @@ Add the code necessary to create a Web API and implement the following _endpoint
 | ------ | ---------- | ----------------------------------------------------------------------------- |
 | GET    | /api/users | Returns all users. Only to be used for development purposes. No requirements. |
 
-### Users Get Data Returned
+#### Users Get Data Returned
 
 ```js
 [
@@ -102,8 +102,8 @@ Add the code necessary to create a Web API and implement the following _endpoint
     username: "note",
   },
   {
-    id: 2,
-    username: "song",
+    "id": 2,
+    "username": "song",
   },
 ];
 ```
