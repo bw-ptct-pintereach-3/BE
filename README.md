@@ -1,5 +1,9 @@
 # Pintereach Back-End API User Guide
 
+## Back-End URL
+
+[https://pintereach-3-be.herokuapp.com/](https://pintereach-3-be.herokuapp.com/)
+
 ## Categories Available
 
 | category_id | category      |
