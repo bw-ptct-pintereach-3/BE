@@ -16,12 +16,10 @@ function findById(id) {
   return db("articles").where("id", id).first();
 }
 
-function insert(article) {
-  return db("articles")
-    .insert(article)
-    .then((ids) => {
-      return getById(ids[0]);
-    });
+async function insert(article) {
+  const id = await db("articles").insert(article);
+  console.log(id);
+  return db("articles").where({ id }).first();
 }
 
 function update(id, changes) {

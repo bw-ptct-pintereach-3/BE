@@ -38,6 +38,65 @@ router.get("/:id", validateId, (req, res) => {
 });
 
 ////////////////////////////////////////////////////////////////
+// posts
+
+router.post("/", validateArticleData, (req, res) => {
+  const newArticle = req.body;
+  newArticle.user_id = req.user.userId;
+
+  Articles.insert(newArticle)
+    .then((article) => {
+      res.status(201).json(article);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).json({
+        message: "Internal server error while adding the article",
+      });
+    });
+});
+
+////////////////////////////////////////////////////////////////
+// deletes
+
+router.delete("/:id", validateId, (req, res) => {
+  Articles.remove(req.params.id)
+    .then((count) => {
+      if (count > 0) {
+        res.status(200).json({ message: "The article has been deleted." });
+      } else {
+        res.status(404).json({ message: "The article could not be found." });
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).json({
+        message: "Internal server error while removing the article.",
+      });
+    });
+});
+
+////////////////////////////////////////////////////////////////
+// puts
+
+router.put("/:id", validateId, validateArticleData, (req, res) => {
+  Articles.update(req.params.id, req.body)
+    .then((article) => {
+      if (article) {
+        res.status(200).json(article);
+      } else {
+        res.status(404).json({ message: "The article could not be found." });
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).json({
+        message: "Internal server error while updating the article.",
+      });
+    });
+});
+
+////////////////////////////////////////////////////////////////
 // middleware
 
 function validateId(req, res, next) {
@@ -61,8 +120,10 @@ function validateArticleData(req, res, next) {
     res.status(400).json({ error: "Request missing url and category." });
   } else if (req.body.url === undefined) {
     res.status(400).json({ error: "Request missing required field: url" });
-  } else if (req.body.category === undefined) {
-    res.status(400).json({ error: "Request missing required field: category" });
+  } else if (req.body.category_id === undefined) {
+    res
+      .status(400)
+      .json({ error: "Request missing required field: category_id" });
   } else {
     next();
   }
