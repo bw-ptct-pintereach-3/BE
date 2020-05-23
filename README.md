@@ -43,6 +43,7 @@
 ```js
 {
   "message": "Welcome, song!",
+  "username": "song",
   "id": 2,
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNvbmciLCJ1c2VyX2lkIjoyLCJpYXQiOjE1OTAyMTQ4NTgsImV4cCI6MTU5MDIyMjA1OH0.GjN2X1uIo6r8AjMmVwcRe_46YDm-NiIJWFsRYZK3Ass"
 }
