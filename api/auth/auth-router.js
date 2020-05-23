@@ -17,7 +17,10 @@ router.post("/register", (req, res) => {
       res.status(201).json(saved);
     })
     .catch((err) => {
-      res.status(500).json({ message: "Unable to add user to database." });
+      res.status(500).json({
+        message: "Unable to add user to database.",
+        err,
+      });
     });
 });
 
@@ -33,8 +36,8 @@ router.post("/login", (req, res) => {
 
         res.status(200).json({
           message: `Welcome, ${user.username}!`,
-          token: token,
           id: user.id,
+          token: token,
         });
       } else {
         res.status(401).json({ error: "Invalid username or password." });
