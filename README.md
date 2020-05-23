@@ -1,4 +1,4 @@
-# Back-End Guide
+# Pintereach Back-End API Use Guide
 
 ## Categories Available
 
@@ -17,7 +17,7 @@
 
 ## Endpoints
 
-### Register and Login
+### Register and Login Endpoints
 
 
 | Method | URL                | Requires                      | Description                                                                  |
@@ -44,7 +44,7 @@
 }
 ```
 
-### Articles
+### Articles Endpoints
 
 | Method | URL               | Requires                    | Description                                                                                                   |
 | ------ | ----------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------- |
@@ -84,7 +84,7 @@
 }
 ```
 
-##### DELETE Article with Specified ID Data Returned
+##### DELETE Article Data Returned
 
 ```js
 {
@@ -93,7 +93,7 @@
 ```
 
 
-### Users
+### Users Endpoints
 
 | Method | URL        | Description                                                                   |
 | ------ | ---------- | ----------------------------------------------------------------------------- |
