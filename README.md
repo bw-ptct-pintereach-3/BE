@@ -1,4 +1,4 @@
-# Pintereach Back-End API Use Guide
+# Pintereach Back-End API User Guide
 
 ## Categories Available
 
@@ -25,7 +25,7 @@
 | POST   | /api/auth/register | `username` `password`         | Creates a user account using the information sent inside the `request body`. |
 | POST   | /api/auth/login    | `username` `password` `token` | Logs user into app.                                                          |
 
-##### Register Data Returned
+##### POST Register Data Returned
 
 ```js
 {
@@ -34,7 +34,7 @@
 }
 ```
 
-##### Login Data Returned
+##### POST Login Data Returned
 
 ```js
 {
@@ -99,7 +99,7 @@
 | ------ | ---------- | ----------------------------------------------------------------------------- |
 | GET    | /api/users | Returns all users. Only to be used for development purposes. No requirements. |
 
-##### Users Get Data Returned
+##### GET Users Data Returned
 
 ```js
 [
