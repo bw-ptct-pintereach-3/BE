@@ -1,5 +1,4 @@
 const express = require("express");
-const jwt = require("jsonwebtoken");
 const Articles = require("./articles-model");
 
 const router = express.Router();
@@ -10,7 +9,11 @@ const router = express.Router();
 router.get("/", (req, res) => {
   Articles.find(req.user.userId)
     .then((articles) => {
-      res.status(200).json(articles);
+      if (articles.length !== 0) {
+        res.status(200).json(articles);
+      } else {
+        res.status(204).json({ message: "No articles found for this user." });
+      }
     })
     .catch((error) => {
       console.log(error);
@@ -23,11 +26,7 @@ router.get("/", (req, res) => {
 router.get("/:id", validateId, (req, res) => {
   Articles.findById(req.params.id)
     .then((article) => {
-      if (article.user_id === req.user.userId) {
-        res.status(200).json(article);
-      } else {
-        res.status(404).json({ message: "Article not found." });
-      }
+      res.status(200).json(article);
     })
     .catch((error) => {
       console.log(error);
@@ -51,7 +50,7 @@ router.post("/", validateArticleData, (req, res) => {
     .catch((error) => {
       console.log(error);
       res.status(500).json({
-        message: "Internal server error while adding the article",
+        message: "Internal server error while adding the article.",
       });
     });
 });
@@ -62,11 +61,7 @@ router.post("/", validateArticleData, (req, res) => {
 router.delete("/:id", validateId, (req, res) => {
   Articles.remove(req.params.id)
     .then((count) => {
-      if (count > 0) {
-        res.status(200).json({ message: "The article has been deleted." });
-      } else {
-        res.status(404).json({ message: "The article could not be found." });
-      }
+      res.status(200).json({ message: "The article has been deleted." });
     })
     .catch((error) => {
       console.log(error);
@@ -85,11 +80,7 @@ router.put("/:id", validateId, validateArticleData, (req, res) => {
 
   Articles.update(req.params.id, editedArticle)
     .then((article) => {
-      if (article) {
-        res.status(200).json(article);
-      } else {
-        res.status(404).json({ message: "The article could not be found." });
-      }
+      res.status(200).json(article);
     })
     .catch((error) => {
       console.log(error);
@@ -107,10 +98,17 @@ function validateId(req, res, next) {
   Articles.findById(id)
     .then((article) => {
       if (article) {
-        req.article = article;
-        next();
+        if (article.user_id === req.user.userId) {
+          req.article = article;
+          next();
+        } else {
+          res.status(401).json({
+            message:
+              "The article id was found to not be associated with this user.",
+          });
+        }
       } else {
-        res.status(404).json({ message: "Article id was not found." });
+        res.status(404).json({ message: "The article id was not found." });
       }
     })
     .catch((err) => {

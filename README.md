@@ -70,7 +70,7 @@ Add the code necessary to create a Web API and implement the following _endpoint
 ];
 ```
 
-### GET Article with Specified ID Data Returned
+### GET with ID, POST, and PUT Data Returned
 
 ```js
 {
@@ -78,17 +78,6 @@ Add the code necessary to create a Web API and implement the following _endpoint
   "url": "https://slack.com",
   "user_id": 1,
   "category_id": 9
-}
-```
-
-### PUT Article with Specified ID Data Returned
-
-```js
-{
-  "id": 1,
-  "url": "http://mysite.com",
-  "user_id": 1,
-  "category_id": 5
 }
 ```
 
