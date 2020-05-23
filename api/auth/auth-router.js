@@ -6,7 +6,7 @@ const generateToken = require("./generateToken");
 const router = express.Router();
 
 //register
-router.post("/register", validateUserInfo, (req, res) => {
+router.post("/register", validateUserData, (req, res) => {
   const user = req.body;
 
   const hash = bcrypt.hashSync(user.password, 8);
@@ -24,7 +24,7 @@ router.post("/register", validateUserInfo, (req, res) => {
 });
 
 //login
-router.post("/login", validateUserInfo, (req, res) => {
+router.post("/login", validateUserData, (req, res) => {
   const { username, password } = req.body;
 
   Users.findBy({ username })
@@ -47,7 +47,7 @@ router.post("/login", validateUserInfo, (req, res) => {
     });
 });
 
-function validateUserInfo(req, res, next) {
+function validateUserData(req, res, next) {
   if (Object.keys(req.body).length === 0) {
     res.status(400).json({ error: "Request missing username and password." });
   } else if (req.body.username === undefined) {

@@ -7,14 +7,12 @@ module.exports = (req, res, next) => {
   const token = req.headers.authorization;
 
   if (token) {
-    console.log(token);
     jwt.verify(token, secret, (err, decodedToken) => {
       if (err) {
-        console.log(err);
         res.status(401).json({ message: "Invalid Credentials." });
       } else {
         req.user = {
-          username: decodedToken.username,
+          userId: decodedToken.user_id,
         };
         next();
       }

@@ -18,19 +18,9 @@ async function add(userData) {
   return db("users").where({ username }).select("id", "username").first();
 }
 
-function update(changes, id) {
-  return db("users").where({ id }).update(changes);
-}
-
-function remove(id) {
-  return db("users").where({ id }).del();
-}
-
 module.exports = {
   find,
   findBy,
   findById,
   add,
-  update,
-  remove,
 };
