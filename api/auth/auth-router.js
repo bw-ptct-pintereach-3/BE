@@ -6,7 +6,7 @@ const generateToken = require("./generateToken");
 const router = express.Router();
 
 //register
-router.post("/register", (req, res) => {
+router.post("/register", validateUserInfo, (req, res) => {
   const user = req.body;
 
   const hash = bcrypt.hashSync(user.password, 8);
@@ -24,7 +24,7 @@ router.post("/register", (req, res) => {
 });
 
 //login
-router.post("/login", (req, res) => {
+router.post("/login", validateUserInfo, (req, res) => {
   const { username, password } = req.body;
 
   Users.findBy({ username })
@@ -46,5 +46,17 @@ router.post("/login", (req, res) => {
       res.status(500).json({ message: "Unable to log user into system." });
     });
 });
+
+function validateUserInfo(req, res, next) {
+  if (Object.keys(req.body).length === 0) {
+    res.status(400).json({ error: "Request missing username and password." });
+  } else if (req.body.username === undefined) {
+    res.status(400).json({ error: "Request missing required field: username" });
+  } else if (req.body.password === undefined) {
+    res.status(400).json({ error: "Request missing required field: password" });
+  } else {
+    next();
+  }
+}
 
 module.exports = router;
