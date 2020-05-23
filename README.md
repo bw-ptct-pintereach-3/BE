@@ -1,21 +1,23 @@
 # Back-End Guide
 
-## Categories
+## Categories Available
 
-| ID  | Category      |
-| --- | ------------- |
-| 1   | Education     |
-| 2   | Recreation    |
-| 3   | Cooking       |
-| 4   | Shopping      |
-| 5   | Technology    |
-| 6   | Entertainment |
-| 7   | Professional  |
-| 8   | Health        |
-| 9   | Sports        |
-| 10  | Other         |
+| category_id | category      |
+| ----------- | ------------- |
+| 1           | Education     |
+| 2           | Recreation    |
+| 3           | Cooking       |
+| 4           | Shopping      |
+| 5           | Technology    |
+| 6           | Entertainment |
+| 7           | Professional  |
+| 8           | Health        |
+| 9           | Sports        |
+| 10          | Other         |
 
 ## Endpoints
+
+### Register and Login
 
 Add the code necessary to create a Web API and implement the following _endpoints_:
 
@@ -42,6 +44,8 @@ Add the code necessary to create a Web API and implement the following _endpoint
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNvbmciLCJ1c2VyX2lkIjoyLCJpYXQiOjE1OTAyMTQ4NTgsImV4cCI6MTU5MDIyMjA1OH0.GjN2X1uIo6r8AjMmVwcRe_46YDm-NiIJWFsRYZK3Ass"
 }
 ```
+
+### Articles
 
 | Method | URL               | Requires                    | Description                                                                                                   |
 | ------ | ----------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------- |
@@ -88,6 +92,8 @@ Add the code necessary to create a Web API and implement the following _endpoint
   "message": "The article has been deleted."
 }
 ```
+
+### Users
 
 | Method | URL        | Description                                                                   |
 | ------ | ---------- | ----------------------------------------------------------------------------- |
