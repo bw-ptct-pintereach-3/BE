@@ -19,7 +19,6 @@ router.post("/register", (req, res) => {
     .catch((err) => {
       res.status(500).json({
         message: "Unable to add user to database.",
-        err,
       });
     });
 });
