@@ -104,7 +104,7 @@ function validateId(req, res, next) {
         } else {
           res.status(401).json({
             message:
-              "The article id was found to not be associated with this user.",
+              "The article id is not associated with this user.",
           });
         }
       } else {
@@ -112,7 +112,7 @@ function validateId(req, res, next) {
       }
     })
     .catch((err) => {
-      res.status(500).json({ message: "Internal server error.", err });
+      res.status(500).json({ message: "Internal server error while verifying the article's id." });
     });
 }
 
@@ -125,7 +125,12 @@ function validateArticleData(req, res, next) {
     res
       .status(400)
       .json({ error: "Request missing required field: category_id" });
-  } else {
+  } else if (req.body.url === '') {
+    res.status(400).json({ error: "The url cannot be an empty string." });
+  } else if (req.body.category_id > 10 || req.body.category_id < 1) {
+    res.status(400).json({ error: "The category_id must be in the range of 1 to 10." });
+  }
+  else {
     next();
   }
 }
