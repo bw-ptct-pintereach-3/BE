@@ -17,13 +17,13 @@ function findById(id) {
 }
 
 async function insert(article) {
-  const id = await db("articles").insert(article);
-  console.log(id);
-  return db("articles").where({ id }).first();
+  const insertedId = await db("articles").insert(article);
+  return findById(insertedId);
 }
 
-function update(id, changes) {
-  return db("articles").where({ id }).update(changes);
+async function update(id, changes) {
+  const updatedId = await db("articles").where({ id }).update(changes);
+  return findById(updatedId);
 }
 
 function remove(id) {

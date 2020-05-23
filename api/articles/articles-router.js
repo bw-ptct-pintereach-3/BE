@@ -80,7 +80,10 @@ router.delete("/:id", validateId, (req, res) => {
 // puts
 
 router.put("/:id", validateId, validateArticleData, (req, res) => {
-  Articles.update(req.params.id, req.body)
+  const editedArticle = req.body;
+  editedArticle.user_id = req.user.userId;
+
+  Articles.update(req.params.id, editedArticle)
     .then((article) => {
       if (article) {
         res.status(200).json(article);

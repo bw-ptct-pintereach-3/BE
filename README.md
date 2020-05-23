@@ -1,5 +1,20 @@
 # Back-End Guide
 
+## Categories
+
+| ID  | Category      |
+| --- | ------------- |
+| 1   | Education     |
+| 2   | Recreation    |
+| 3   | Cooking       |
+| 4   | Shopping      |
+| 5   | Technology    |
+| 6   | Entertainment |
+| 7   | Professional  |
+| 8   | Health        |
+| 9   | Sports        |
+| 10  | Other         |
+
 ## Endpoints
 
 Add the code necessary to create a Web API and implement the following _endpoints_:
@@ -36,7 +51,7 @@ Add the code necessary to create a Web API and implement the following _endpoint
 | PUT    | /api/articles/:id | `url` `category_id` `token` | Updates the article with the specified `id` using data from the `request body`. Returns the modified article. |
 | DELETE | /api/articles/:id | `token`                     | Removes the article with the specified `id`.                                                                  |
 
-### Get Article Data Returned
+### GET Article Data Returned
 
 ```js
 [
@@ -55,7 +70,7 @@ Add the code necessary to create a Web API and implement the following _endpoint
 ];
 ```
 
-### Get Article with Specified ID Data Returned
+### GET Article with Specified ID Data Returned
 
 ```js
 {
@@ -63,6 +78,25 @@ Add the code necessary to create a Web API and implement the following _endpoint
   "url": "https://slack.com",
   "user_id": 1,
   "category_id": 9
+}
+```
+
+### PUT Article with Specified ID Data Returned
+
+```js
+{
+  "id": 1,
+  "url": "http://mysite.com",
+  "user_id": 1,
+  "category_id": 5
+}
+```
+
+### DELETE Article with Specified ID Data Returned
+
+```js
+{
+  "message": "The article has been deleted."
 }
 ```
 
