@@ -6,7 +6,7 @@ const generateToken = require("./generateToken");
 const router = express.Router();
 
 //register
-router.post("/register", (req, res) => {
+router.post("/register", validateUserData, (req, res) => {
   const user = req.body;
 
   const hash = bcrypt.hashSync(user.password, 8);
@@ -17,12 +17,14 @@ router.post("/register", (req, res) => {
       res.status(201).json(saved);
     })
     .catch((err) => {
-      res.status(500).json({ message: "Unable to add user to database." });
+      res.status(500).json({
+        message: "Unable to add user to database.",
+      });
     });
 });
 
 //login
-router.post("/login", (req, res) => {
+router.post("/login", validateUserData, (req, res) => {
   const { username, password } = req.body;
 
   Users.findBy({ username })
@@ -33,8 +35,9 @@ router.post("/login", (req, res) => {
 
         res.status(200).json({
           message: `Welcome, ${user.username}!`,
-          token: token,
+          username: user.username,
           id: user.id,
+          token: token,
         });
       } else {
         res.status(401).json({ error: "Invalid username or password." });
@@ -44,5 +47,17 @@ router.post("/login", (req, res) => {
       res.status(500).json({ message: "Unable to log user into system." });
     });
 });
+
+function validateUserData(req, res, next) {
+  if (Object.keys(req.body).length === 0) {
+    res.status(400).json({ error: "Request missing username and password." });
+  } else if (req.body.username === undefined) {
+    res.status(400).json({ error: "Request missing required field: username" });
+  } else if (req.body.password === undefined) {
+    res.status(400).json({ error: "Request missing required field: password" });
+  } else {
+    next();
+  }
+}
 
 module.exports = router;
