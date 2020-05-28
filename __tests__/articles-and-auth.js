@@ -1,6 +1,7 @@
 const supertest = require("supertest");
 const server = require("../api/server");
 const db = require("../data/dbconfig");
+require("dotenv").config();
 
 beforeEach(async () => {
   await db.seed.run()
@@ -10,9 +11,9 @@ afterAll(async () => {
   await db.destroy()
 })
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE1OTA2NDU1MTEsImV4cCI6MTU5MDY1MjcxMX0.bovBIxZJ4chd9yeJSsHvVFCIW3VksqHoYHoR467QSXc'
+const token = process.env.TOKEN_1;
 
-const token2 = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJpYXQiOjE1OTA2NDU1MzksImV4cCI6MTU5MDY1MjczOX0.u8YReEE1lUqavm1gmCnRbZ8wJoDLBRA4DNti5HGfJqQ'
+const token2 = process.env.TOKEN_2;
 
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////

@@ -2,14 +2,17 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const Users = require("../users/users-model");
 const generateToken = require("./generateToken");
+require("dotenv").config();
 
 const router = express.Router();
+
+const hashCount = process.env.HASH_COUNT || 8;
 
 //register
 router.post("/register", validateUserData, checkUsername, (req, res) => {
   const user = req.body;
 
-  const hash = bcrypt.hashSync(user.password, 8);
+  const hash = bcrypt.hashSync(user.password, hashCount);
   user.password = hash;
 
   Users.add(user)
