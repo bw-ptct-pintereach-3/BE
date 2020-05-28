@@ -18,7 +18,7 @@ router.post("/register", validateUserData, (req, res) => {
     })
     .catch((err) => {
       res.status(500).json({
-        message: "Unable to add user to database.",
+        message: "Unable to add user to database. Username may already be taken.",
       });
     });
 });
@@ -52,9 +52,13 @@ function validateUserData(req, res, next) {
   if (Object.keys(req.body).length === 0) {
     res.status(400).json({ error: "Request missing username and password." });
   } else if (req.body.username === undefined) {
-    res.status(400).json({ error: "Request missing required field: username" });
+    res.status(400).json({ error: "Request missing required field: username." });
   } else if (req.body.password === undefined) {
-    res.status(400).json({ error: "Request missing required field: password" });
+    res.status(400).json({ error: "Request missing required field: password." });
+  } else if (req.body.username === '') {
+    res.status(400).json({ error: "A username cannot be an empty string." });
+  } else if (req.body.password === '') {
+    res.status(400).json({ error: "A password cannot be an empty string." });
   } else {
     next();
   }

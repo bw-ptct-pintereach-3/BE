@@ -1,6 +1,5 @@
 const supertest = require("supertest");
 const server = require("../api/server");
-const db = require("../data/dbconfig");
 
 describe("users integration test", () => {
   it("GET /users", async () => {

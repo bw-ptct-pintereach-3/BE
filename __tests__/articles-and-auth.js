@@ -10,11 +10,19 @@ afterAll(async () => {
   await db.destroy()
 })
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE1OTA2MzI0MjksImV4cCI6MTU5MDYzOTYyOX0.z2i2w-fVlVPcXzX--eVDKXQOeUzwRjNwAYCvopJ-JSI'
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE1OTA2Mzk4MTIsImV4cCI6MTU5MDY0NzAxMn0.eaVDQ-GeFd1CEroDU-Wij4KiRYesPsRuiTvgnd0Rgd0'
 
 const token2 = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJpYXQiOjE1OTA2MzYzMDUsImV4cCI6MTU5MDY0MzUwNX0.vriaEv2sXu-tX26Tx0v2Ga0sPbvxJgLZEGJEFhoi0JM'
 
-describe("users integration test", () => {
+////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+//
+// Articles
+//
+////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+
+describe("articles integration test", () => {
   const data = {
     "category_id": "1",
     "url": "http://hi.com",
@@ -230,5 +238,126 @@ describe("users integration test", () => {
     expect(res.statusCode).toBe(404);
     expect(res.body.error).toBe("The article id was not found.")
   });
+});
 
+////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+//
+// Auth
+//
+////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+
+describe("auth integration test", () => {
+  const data_register = {
+    "username": "notesong",
+    "password": "pw",
+  };
+
+  const data_login = {
+    "username": "note",
+    "password": "pw",
+  };
+
+  const data_no_username = {
+    "password": "pw",
+  };
+
+  const data_no_password = {
+    "username": "note",
+  };
+
+  const data_username_empty_string = {
+    "username": "",
+    "password": "pw",
+  };
+
+  const data_password_empty_string = {
+    "username": "note",
+    "password": "",
+  };
+
+  /////////////////////////////////
+  // Register
+
+  // correct values
+  it("POST /auth/register", async () => {
+    const res = await supertest(server)
+      .post("/api/auth/register")
+      .send(data_register);
+    expect(res.type).toBe("application/json");
+    expect(res.statusCode).toBe(201);
+    expect(res.body.username).toContain("notesong")
+  });
+
+  // no data
+  it("POST /auth/register", async () => {
+    const res = await supertest(server)
+      .post("/api/auth/register")
+    expect(res.type).toBe("application/json");
+    expect(res.statusCode).toBe(400);
+    expect(res.body.error).toBe("Request missing username and password.")
+  });
+
+  // no username
+  it("POST /auth/register", async () => {
+    const res = await supertest(server)
+      .post("/api/auth/register")
+      .send(data_no_username);
+    expect(res.type).toBe("application/json");
+    expect(res.statusCode).toBe(400);
+    expect(res.body.error).toBe("Request missing required field: username.")
+  });
+
+  // no password
+  it("POST /auth/register", async () => {
+    const res = await supertest(server)
+      .post("/api/auth/register")
+      .send(data_no_password);
+    expect(res.type).toBe("application/json");
+    expect(res.statusCode).toBe(400);
+    expect(res.body.error).toBe("Request missing required field: password.")
+  });
+
+  // empty username
+  it("POST /auth/register", async () => {
+    const res = await supertest(server)
+      .post("/api/auth/register")
+      .send(data_username_empty_string);
+    expect(res.type).toBe("application/json");
+    expect(res.statusCode).toBe(400);
+    expect(res.body.error).toBe("A username cannot be an empty string.")
+  });
+
+  // empty password
+  it("POST /auth/register", async () => {
+    const res = await supertest(server)
+      .post("/api/auth/register")
+      .send(data_password_empty_string);
+    expect(res.type).toBe("application/json");
+    expect(res.statusCode).toBe(400);
+    expect(res.body.error).toBe("A password cannot be an empty string.")
+  });
+
+  /////////////////////////////////
+  // Login
+
+  // valid data
+  it("POST /auth/login", async () => {
+    const res = await supertest(server)
+      .post("/api/auth/login")
+      .send(data_login);
+    expect(res.type).toBe("application/json");
+    expect(res.statusCode).toBe(200);
+    expect(res.body.username).toContain("note")
+  });
+
+  // no data
+  it("POST /auth/login", async () => {
+    const res = await supertest(server)
+      .post("/api/auth/login")
+    expect(res.type).toBe("application/json");
+    expect(res.statusCode).toBe(400);
+    expect(res.body.error).toContain("Request missing username and password.")
+  });
 });
