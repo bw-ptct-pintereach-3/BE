@@ -13,12 +13,17 @@ module.exports = {
     seeds: { directory: "./data/seeds" },
   },
   testing: {
-    client: "pg",
-    connection: process.env.DB_URL,
+    client: "sqlite3",
+    connection: {
+      filename: "./data/pintereach-test.db3",
+    },
+    useNullAsDefault: true,
     migrations: {
       directory: "./data/migrations",
     },
-    seeds: { directory: "./data/seeds" },
+    seeds: {
+      directory: "./data/seeds",
+    },
   },
   production: {
     client: "pg",
