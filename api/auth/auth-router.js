@@ -6,7 +6,7 @@ require("dotenv").config();
 
 const router = express.Router();
 
-const hashCount = process.env.HASH_COUNT || 8;
+const hashCount = parseInt(process.env.HASH_COUNT) || 8;
 
 //register
 router.post("/register", validateUserData, checkUsername, (req, res) => {
