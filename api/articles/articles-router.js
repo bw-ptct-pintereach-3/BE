@@ -95,6 +95,7 @@ router.put("/:id", validateId, validateArticleData, (req, res) => {
 
 function validateId(req, res, next) {
   const { id } = req.params;
+
   Articles.findById(id)
     .then((article) => {
       if (article) {

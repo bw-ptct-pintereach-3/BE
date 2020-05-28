@@ -6,7 +6,7 @@ const generateToken = require("./generateToken");
 const router = express.Router();
 
 //register
-router.post("/register", validateUserData, (req, res) => {
+router.post("/register", validateUserData, checkUsername, (req, res) => {
   const user = req.body;
 
   const hash = bcrypt.hashSync(user.password, 8);
@@ -18,7 +18,7 @@ router.post("/register", validateUserData, (req, res) => {
     })
     .catch((err) => {
       res.status(500).json({
-        message: "Unable to add user to database. Username may already be taken.",
+        message: "Unable to add user to database.",
       });
     });
 });
@@ -47,6 +47,26 @@ router.post("/login", validateUserData, (req, res) => {
       res.status(500).json({ message: "Unable to log user into system." });
     });
 });
+
+function checkUsername(req, res, next) {
+  const { username } = req.body;
+
+  Users.findBy({ username })
+    .first()
+    .then((user) => {
+      if (user) {
+        res.status(401).json({
+          error:
+            "Username is already taken.",
+        });
+      } else {
+        next();
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({ error: "Internal server error adding user." });
+    });
+}
 
 function validateUserData(req, res, next) {
   if (Object.keys(req.body).length === 0) {

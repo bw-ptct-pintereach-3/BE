@@ -10,9 +10,9 @@ afterAll(async () => {
   await db.destroy()
 })
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE1OTA2Mzk4MTIsImV4cCI6MTU5MDY0NzAxMn0.eaVDQ-GeFd1CEroDU-Wij4KiRYesPsRuiTvgnd0Rgd0'
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE1OTA2NDU1MTEsImV4cCI6MTU5MDY1MjcxMX0.bovBIxZJ4chd9yeJSsHvVFCIW3VksqHoYHoR467QSXc'
 
-const token2 = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJpYXQiOjE1OTA2MzYzMDUsImV4cCI6MTU5MDY0MzUwNX0.vriaEv2sXu-tX26Tx0v2Ga0sPbvxJgLZEGJEFhoi0JM'
+const token2 = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJpYXQiOjE1OTA2NDU1MzksImV4cCI6MTU5MDY1MjczOX0.u8YReEE1lUqavm1gmCnRbZ8wJoDLBRA4DNti5HGfJqQ'
 
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
@@ -287,7 +287,17 @@ describe("auth integration test", () => {
       .send(data_register);
     expect(res.type).toBe("application/json");
     expect(res.statusCode).toBe(201);
-    expect(res.body.username).toContain("notesong")
+    expect(res.body.username).toBe("notesong")
+  });
+
+  // duplicate username
+  it("POST /auth/register", async () => {
+    const res = await supertest(server)
+      .post("/api/auth/register")
+      .send(data_login);
+    expect(res.type).toBe("application/json");
+    expect(res.statusCode).toBe(401);
+    expect(res.body.error).toBe("Username is already taken.")
   });
 
   // no data
