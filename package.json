@@ -4,7 +4,10 @@
   "description": "Pintereach helps you research by enabling you to save and organize articles in to categories to read later.",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon -r dotenv/config index.js",
+    "test:watch": "cross-env NODE_ENV=testing jest --watch",
+    "test": "cross-env NODE_ENV=testing jest",
+    "server": "cross-env NODE_ENV=development nodemon -r dotenv/config index.js",
+    "start:watch": "cross-env NODE_ENV=development nodemon index.js",
     "start": "node index.js"
   },
   "repository": {
@@ -20,6 +23,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "helmet": "^3.22.0",
@@ -29,6 +33,12 @@
     "pg": "^8.2.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.4"
+    "jest": "^26.0.1",
+    "nodemon": "^2.0.4",
+    "sqlite3": "^4.2.0",
+    "supertest": "^4.0.2"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }

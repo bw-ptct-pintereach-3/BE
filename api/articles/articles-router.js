@@ -95,6 +95,7 @@ router.put("/:id", validateId, validateArticleData, (req, res) => {
 
 function validateId(req, res, next) {
   const { id } = req.params;
+
   Articles.findById(id)
     .then((article) => {
       if (article) {
@@ -103,16 +104,16 @@ function validateId(req, res, next) {
           next();
         } else {
           res.status(401).json({
-            message:
+            error:
               "The article id is not associated with this user.",
           });
         }
       } else {
-        res.status(404).json({ message: "The article id was not found." });
+        res.status(404).json({ error: "The article id was not found." });
       }
     })
     .catch((err) => {
-      res.status(500).json({ message: "Internal server error while verifying the article's id." });
+      res.status(500).json({ error: "Internal server error while verifying the article's id." });
     });
 }
 
