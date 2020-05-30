@@ -130,8 +130,7 @@ function validateArticleData(req, res, next) {
     res.status(400).json({ error: "The url cannot be an empty string." });
   } else if (req.body.category_id > 10 || req.body.category_id < 1) {
     res.status(400).json({ error: "The category_id must be in the range of 1 to 10." });
-  }
-  else {
+  } else {
     next();
   }
 }

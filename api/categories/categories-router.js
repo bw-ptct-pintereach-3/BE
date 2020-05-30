@@ -14,6 +14,7 @@ router.get("/", (req, res) => {
     .catch((error) => {
       console.log(error);
       res.status(500).json({
+        error: error.message,
         message: "Internal server error while retrieving the categories",
       });
     });
@@ -27,6 +28,7 @@ router.get("/:id", validateId, (req, res) => {
     .catch((error) => {
       console.log(error);
       res.status(500).json({
+        error: error.message,
         message: "Internal server error while retrieving the category.",
       });
     });
