@@ -27,7 +27,7 @@
 | Method | URL                 | Requires | Description                                    |
 | ------ | ------------------- | -------- | ---------------------------------------------- |
 | GET    | /api/categories     | `token`  | Returns all categories.                        |
-| GET    | /api/categories/:id | `token`  | Returns an categories with the specified `id`. |
+| GET    | /api/categories/:id | `token`  | Returns a category with the specified `id`. |
 
 ##### GET Categories Data Returned
 
