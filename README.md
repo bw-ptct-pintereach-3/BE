@@ -21,6 +21,70 @@
 
 ## Endpoints
 
+### Categories Endpoints
+
+
+| Method | URL                 | Requires | Description                                    |
+| ------ | ------------------- | -------- | ---------------------------------------------- |
+| GET    | /api/categories     | `token`  | Returns all categories.                        |
+| GET    | /api/categories/:id | `token`  | Returns an categories with the specified `id`. |
+
+##### GET Categories Data Returned
+
+```js
+[
+  {
+    "id": 1,
+    "category": "Education"
+  },
+  {
+    "id": 2,
+    "category": "Recreation"
+  },
+  {
+    "id": 3,
+    "category": "Cooking"
+  },
+  {
+    "id": 4,
+    "category": "Shopping"
+  },
+  {
+    "id": 5,
+    "category": "Technology"
+  },
+  {
+    "id": 6,
+    "category": "Entertainment"
+  },
+  {
+    "id": 7,
+    "category": "Professional"
+  },
+  {
+    "id": 8,
+    "category": "Health"
+  },
+  {
+    "id": 9,
+    "category": "Sports"
+  },
+  {
+    "id": 10,
+    "category": "Other"
+  }
+]
+```
+
+##### GET Category by ID Data Returned
+
+```js
+{
+  "id": 5,
+  "category": "Technology"
+}
+```
+
 ### Register and Login Endpoints
 
 

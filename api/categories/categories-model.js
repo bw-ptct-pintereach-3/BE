@@ -10,5 +10,5 @@ function find() {
 }
 
 function findById(id) {
-  return db("categories").where("id", id).first();
+  return find().where("id", id).first();
 }
